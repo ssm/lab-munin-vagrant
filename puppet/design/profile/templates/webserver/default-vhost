@@ -1,0 +1,21 @@
+# Munin on /
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server ipv6only=on;
+
+	root /var/cache/munin/www;
+	index index.html;
+	expires modified +310s;
+
+	server_name localhost;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+	location /static/ {
+		alias /etc/munin/static/;
+		expires modified +1w;
+	}
+
+}
